@@ -1,0 +1,6 @@
+# CheatEngine-generated files
+ref.s
+*.PTR
+
+# Misc
+**.code-workspace
