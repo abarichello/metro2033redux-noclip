@@ -15,12 +15,42 @@ function asm.open(path)
         log("Couldn't find file!")
         return
     end
-    return file:read("*all")
+    local content = file:read("*all")
+    file:close()
+    return content
 end
+
+-- Function used for scripts that don't require allocating new memory
+-- Parse a *.asm file, execute [enable] if info.enable, otherwise execute [disable]
+function asm.execute(info)
+    key = {
+        start = "[ENABLE]",
+        stop = "[DISABLE]"
+    }
+    if not enable then
+        key.start = "[DISABLE]"
+        key.stop = "[ENABLE]"
+    end
+
+    local script = ""
+    local startFlag = false
+    for line in io.lines(info.asmPath) do
+        if line == key.stop then
+            startFlag = false
+        elseif line == key.start then
+            startFlag = true
+        elseif startFlag then
+            script = script .. line .. "\n"
+        end
+    end
+    autoAssemble(script)
+end
+
+-- Code cave related functions
 
 -- Allocs memory inside the process, registers necessary user defined symbols
 -- and executes the assembly script to create the code cave.
-function asm.enable(info)
+function asm.createCodeCave(info)
     log("Enabling script " .. info.asmPath)
 
     local caveSymbol = info.symbolPrefix .. "_cave"
@@ -39,7 +69,7 @@ end
 
 -- Unregisters all user defined symbols on enable.
 -- Frees memory used in code cave.
-function asm.disable(info)
+function asm.destroyCodeCave(info)
     log("Disabling script " .. info.symbolPrefix)
 
     local caveSymbol = info.symbolPrefix .. "_cave"
