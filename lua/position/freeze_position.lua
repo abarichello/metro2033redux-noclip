@@ -10,16 +10,17 @@ local SCRIPTNAME = "freeze_position"
 local FILE = "asm/position/freeze_position.asm"
 
 [ENABLE]
-enableInfo = {
+local enableInfo = {
     scriptName = SCRIPTNAME,
     asmPath = FILE,
     enable = true,
 }
+asm.execute(enableInfo)
 
 [DISABLE]
-enableInfo = {
+local disableInfo = {
     scriptName = SCRIPTNAME,
     asmPath = FILE,
     enable = false,
 }
-
+asm.execute(disableInfo)

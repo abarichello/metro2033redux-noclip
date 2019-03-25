@@ -1,48 +1,16 @@
+local u = require "modules/utils"
+
 local asm = {}
 
 -- Table that constains all addresses of memory allocations made by cheat engine
 -- Key: code cave symbol / Value: address of allocated memory
 local memoryAddresses = {}
 
-function log(message)
-    print("--> asm.lua: " .. message)
-end
-
--- Open Cheat Engine's auto assemble(*.asm) scripts and returns contents as a string
-function asm.open(path)
-    local file = io.open(path, "r")
-    if file == nil then
-        log("Couldn't find file!")
-        return
-    end
-    local content = file:read("*all")
-    file:close()
-    return content
-end
-
--- Function used for scripts that don't require allocating new memory
--- Parse a *.asm file, execute [enable] if info.enable, otherwise execute [disable]
+-- Execute a simple .asm script, the section to be executed is
+-- determined by info.enable
 function asm.execute(info)
-    key = {
-        start = "[ENABLE]",
-        stop = "[DISABLE]"
-    }
-    if not enable then
-        key.start = "[DISABLE]"
-        key.stop = "[ENABLE]"
-    end
-
-    local script = ""
-    local startFlag = false
-    for line in io.lines(info.asmPath) do
-        if line == key.stop then
-            startFlag = false
-        elseif line == key.start then
-            startFlag = true
-        elseif startFlag then
-            script = script .. line .. "\n"
-        end
-    end
+    u.log("Executing script " .. info.scriptName .. " : " .. tostring(info.enable))
+    local script = u.extractSection(info.asmPath, info.enable)
     autoAssemble(script)
 end
 
@@ -51,7 +19,7 @@ end
 -- Allocs memory inside the process, registers necessary user defined symbols
 -- and executes the assembly script to create the code cave.
 function asm.createCodeCave(info)
-    log("Enabling script " .. info.asmPath)
+    u.log("Enabling script " .. info.asmPath)
 
     local caveSymbol = info.symbolPrefix .. "_cave"
     local addressSymbol = info.symbolPrefix .. "_nop"
@@ -64,13 +32,13 @@ function asm.createCodeCave(info)
     registerSymbol(caveSymbol, caveMemAddress)
     memoryAddresses[caveSymbol] = caveMemAddress
 
-    autoAssemble(asm.open(info.asmPath))
+    autoAssemble(u.open(info.asmPath))
 end
 
 -- Unregisters all user defined symbols on enable.
 -- Frees memory used in code cave.
 function asm.destroyCodeCave(info)
-    log("Disabling script " .. info.symbolPrefix)
+    u.log("Disabling script " .. info.symbolPrefix)
 
     local caveSymbol = info.symbolPrefix .. "_cave"
     local addressSymbol = info.symbolPrefix .. "_nop"
