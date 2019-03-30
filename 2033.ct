@@ -50,6 +50,7 @@ asm.execute(disableInfo)
             <CheatEntry>
               <ID>61</ID>
               <Description>"Y"</Description>
+              <LastState Value="-153.3181152" RealAddress="27B23809AB0"/>
               <VariableType>Float</VariableType>
               <Address>"metro.exe"+00D01EB0</Address>
               <Offsets>
@@ -70,6 +71,7 @@ asm.execute(disableInfo)
             <CheatEntry>
               <ID>8</ID>
               <Description>"FOV"</Description>
+              <LastState Value="64" RealAddress="7FF61B42710C"/>
               <VariableType>Float</VariableType>
               <Address>metro.exe+CE710C</Address>
             </CheatEntry>
