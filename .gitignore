@@ -4,4 +4,5 @@ ref.s
 
 # Misc
 **.code-workspace
+.vscode/
 test**

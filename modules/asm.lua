@@ -5,6 +5,7 @@ local asm = {}
 -- Table that constains all addresses of memory allocations made by cheat engine
 -- Key: code cave symbol / Value: address of allocated memory
 local memoryAddresses = {}
+local SIZE = 0x1000 -- Default allocated memory (4Kb)
 
 -- Execute a simple .asm script, the section to be executed is
 -- determined by info.enable
@@ -22,13 +23,13 @@ function asm.createCodeCave(info)
     u.log("Enabling script " .. info.asmPath)
 
     local caveSymbol = info.symbolPrefix .. "_cave"
-    local addressSymbol = info.symbolPrefix .. "_nop"
+    local addressSymbol = info.symbolPrefix .. "_entry"
 
     unregisterSymbol(caveSymbol)
     unregisterSymbol(addressSymbol)
 
     registerSymbol(addressSymbol, info.address)
-    local caveMemAddress = allocateMemory(0x1000) -- 4KB
+    local caveMemAddress = allocateMemory(SIZE)
     registerSymbol(caveSymbol, caveMemAddress)
     memoryAddresses[caveSymbol] = caveMemAddress
 
@@ -41,14 +42,14 @@ function asm.destroyCodeCave(info)
     u.log("Disabling script " .. info.symbolPrefix)
 
     local caveSymbol = info.symbolPrefix .. "_cave"
-    local addressSymbol = info.symbolPrefix .. "_nop"
+    local addressSymbol = info.symbolPrefix .. "_entry"
 
     writeBytes(info.address, info.bytes)
     unregisterSymbol(caveSymbol)
     unregisterSymbol(addressSymbol)
 
     local caveMemAddress = memoryAddresses[caveSymbol]
-    deAlloc(caveMemAddress, 0x1000) -- 4KB
+    deAlloc(caveMemAddress, SIZE)
     memoryAddresses[caveSymbol] = nil
 end
 
