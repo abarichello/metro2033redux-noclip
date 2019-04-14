@@ -5,7 +5,7 @@ function u.log(message)
     print("--> asm.lua: " .. message)
 end
 
-function u.checkAsm(script)
+function u.syntaxCheck(script)
     if not autoAssembleCheck(script) then
         u.log("Error while parsing autoassembler file")
         return ""
@@ -22,7 +22,7 @@ function u.open(path)
     end
     local script = file:read("*all")
     file:close()
-    return u.checkAsm(script)
+    return u.syntaxCheck(script)
 end
 
 -- Parse a .asm file, return only the section
@@ -48,7 +48,7 @@ function u.extractSection(path, enable)
             script = script .. line .. "\n"
         end
     end
-    return u.checkAsm(script)
+    return u.syntaxCheck(script)
 end
 
 return u

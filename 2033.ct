@@ -75,11 +75,9 @@ if syntaxcheck then
     return
 end
 
-local BASE_ADDRESS = getAddress("metro.exe")
+local X_COORD_POINTER = "[[[[metro.exe + 00D01EB0] + E0] + 20] + 100] + E8"
+local Z_COORD_POINTER = "[[[[metro.exe + 00D01EB0] + E0] + 20] + 100] + EC"
 local Y_COORD_POINTER = "[[[[metro.exe + 00D01EB0] + E0] + 20] + 100] + F0"
-local VK_W = 87
-local VK_S = 83
-local VK_LSHIFT = 160
 
 function noclipFly()
     local speedModifier = 0.1
@@ -87,15 +85,34 @@ function noclipFly()
         speedModifier = speedModifier * 3
     end
 
+    -- X Coordinate
+    if isKeyPressed(VK_D) then
+        local x = readFloat(X_COORD_POINTER)
+        writeFloat(X_COORD_POINTER, x + speedModifier)
+    end
+    if isKeyPressed(VK_A) then
+        local x = readFloat(X_COORD_POINTER)
+        writeFloat(X_COORD_POINTER, x - speedModifier)
+    end
+
+    -- Z Coordinate
+    if isKeyPressed(VK_E) then
+        local z = readFloat(Z_COORD_POINTER)
+        writeFloat(Z_COORD_POINTER, z + speedModifier)
+    end
+    if isKeyPressed(VK_Q) then
+        local z = readFloat(Z_COORD_POINTER)
+        writeFloat(Z_COORD_POINTER, z - speedModifier)
+    end
+
+    -- Y Coordinate
     if isKeyPressed(VK_W) then
         local y = readFloat(Y_COORD_POINTER)
         writeFloat(Y_COORD_POINTER, y + speedModifier)
-        print(y)
     end
     if isKeyPressed(VK_S) then
         local y = readFloat(Y_COORD_POINTER)
         writeFloat(Y_COORD_POINTER, y - speedModifier)
-        print(y)
     end
 end
 
@@ -124,7 +141,7 @@ end
                 <CheatEntry>
                   <ID>64</ID>
                   <Description>"X"</Description>
-                  <LastState Value="214.503418" RealAddress="25C30241EB8"/>
+                  <LastState Value="215.8033905" RealAddress="1E919A925B8"/>
                   <VariableType>Float</VariableType>
                   <Address>"metro.exe"+00D01EB0</Address>
                   <Offsets>
@@ -137,7 +154,7 @@ end
                 <CheatEntry>
                   <ID>61</ID>
                   <Description>"Y"</Description>
-                  <LastState Value="-151.3666229" RealAddress="25C30241EC0"/>
+                  <LastState Value="-150.6347504" RealAddress="1E919A925C0"/>
                   <VariableType>Float</VariableType>
                   <Address>"metro.exe"+00D01EB0</Address>
                   <Offsets>
@@ -150,7 +167,7 @@ end
                 <CheatEntry>
                   <ID>67</ID>
                   <Description>"Z"</Description>
-                  <LastState Value="-13.03190327" RealAddress="25C30241EBC"/>
+                  <LastState Value="-13.02845478" RealAddress="1E919A925BC"/>
                   <VariableType>Float</VariableType>
                   <Address>"metro.exe"+00D01EB0</Address>
                   <Offsets>
@@ -173,7 +190,7 @@ end
             <CheatEntry>
               <ID>8</ID>
               <Description>"FOV"</Description>
-              <LastState Value="65" RealAddress="7FF7C13B710C"/>
+              <LastState Value="65" RealAddress="7FF6D984710C"/>
               <VariableType>Float</VariableType>
               <Address>metro.exe+CE710C</Address>
             </CheatEntry>
@@ -182,16 +199,7 @@ end
       </CheatEntries>
     </CheatEntry>
   </CheatEntries>
-  <UserdefinedSymbols>
-    <SymbolEntry>
-      <Name>freeze_position_entry</Name>
-      <Address>metro.exe+89E029</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>freeze_position_cave</Name>
-      <Address>276E9CB0000</Address>
-    </SymbolEntry>
-  </UserdefinedSymbols>
+  <UserdefinedSymbols/>
   <DisassemblerComments>
     <DisassemblerComment>
       <Address>"metro.exe"+89E02F</Address>

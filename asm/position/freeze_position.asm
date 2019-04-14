@@ -1,7 +1,7 @@
 [ENABLE]
 
 metro.exe+89E029:
-  jmp metro.exe+89E06B  // Skip loading of camera positions from memory
+  jmp metro.exe+89E06B  // Skip saving of calculated positions to memory
 
 [DISABLE]
 
