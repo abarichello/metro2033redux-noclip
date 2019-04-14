@@ -1,5 +1,6 @@
 local u = require "modules/utils"
 
+-- Module used to abstract some operations using Cheat Engine's API
 local asm = {}
 
 -- Table that constains all addresses of memory allocations made by cheat engine

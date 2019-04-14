@@ -1,19 +1,28 @@
+-- Auxiliary module for IO/Logging functions
 local u = {}
 
 function u.log(message)
     print("--> asm.lua: " .. message)
 end
 
+function u.checkAsm(script)
+    if not autoAssembleCheck(script) then
+        u.log("Error while parsing autoassembler file")
+        return ""
+    end
+    return script
+end
+
 -- Open Cheat Engine's auto assemble(.asm) scripts and return contents as a string
 function u.open(path)
     local file = io.open(path, "r")
     if file == nil then
-        log("Couldn't find file!")
+        u.log("Couldn't find file!")
         return
     end
-    local content = file:read("*all")
+    local script = file:read("*all")
     file:close()
-    return content
+    return u.checkAsm(script)
 end
 
 -- Parse a .asm file, return only the section
@@ -39,7 +48,7 @@ function u.extractSection(path, enable)
             script = script .. line .. "\n"
         end
     end
-    return script
+    return u.checkAsm(script)
 end
 
 return u

@@ -7,7 +7,7 @@ end
 local asm = require "modules/asm"
 
 local SCRIPTNAME = "freeze_position"
-local FILE = "./asm/position/freeze_position.asm"
+local FILE = "asm/position/freeze_position.asm"
 
 [ENABLE]
 local enableInfo = {
