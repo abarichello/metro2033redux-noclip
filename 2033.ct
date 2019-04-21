@@ -24,46 +24,13 @@
                   <Action>Toggle Activation</Action>
                   <Keys>
                     <Key>192</Key>
+                    <Key>49</Key>
                   </Keys>
                   <Description>toggle</Description>
                   <ID>0</ID>
                 </Hotkey>
               </Hotkeys>
               <CheatEntries>
-                <CheatEntry>
-                  <ID>63</ID>
-                  <Description>"Freeze Position"</Description>
-                  <LastState/>
-                  <VariableType>Auto Assembler Script</VariableType>
-                  <AssemblerScript>{$lua}
--- Prevent execution of Lua in aasm scripts during syntax check
-if syntaxcheck then
-    return
-end
-
-local asm = require "modules/asm"
-
-local SCRIPTNAME = "freeze_position"
-local FILE = "asm/position/freeze_position.asm"
-
-[ENABLE]
-local enableInfo = {
-    scriptName = SCRIPTNAME,
-    asmPath = FILE,
-    enable = true,
-}
-asm.execute(enableInfo)
-
-[DISABLE]
-local disableInfo = {
-    scriptName = SCRIPTNAME,
-    asmPath = FILE,
-    enable = false,
-}
-asm.execute(disableInfo)
-
-</AssemblerScript>
-                </CheatEntry>
                 <CheatEntry>
                   <ID>68</ID>
                   <Description>"Noclip Fly"</Description>
@@ -75,58 +42,26 @@ if syntaxcheck then
     return
 end
 
-local X_COORD_POINTER = "[[[[metro.exe + 00D01EB0] + E0] + 20] + 100] + E8"
-local Z_COORD_POINTER = "[[[[metro.exe + 00D01EB0] + E0] + 20] + 100] + EC"
-local Y_COORD_POINTER = "[[[[metro.exe + 00D01EB0] + E0] + 20] + 100] + F0"
+local asm = require "modules/asm"
 
-function noclipFly()
-    local speedModifier = 0.1
-    if isKeyPressed(VK_LSHIFT) then
-        speedModifier = speedModifier * 3
-    end
-
-    -- X Coordinate
-    if isKeyPressed(VK_D) then
-        local x = readFloat(X_COORD_POINTER)
-        writeFloat(X_COORD_POINTER, x + speedModifier)
-    end
-    if isKeyPressed(VK_A) then
-        local x = readFloat(X_COORD_POINTER)
-        writeFloat(X_COORD_POINTER, x - speedModifier)
-    end
-
-    -- Z Coordinate
-    if isKeyPressed(VK_E) then
-        local z = readFloat(Z_COORD_POINTER)
-        writeFloat(Z_COORD_POINTER, z + speedModifier)
-    end
-    if isKeyPressed(VK_Q) then
-        local z = readFloat(Z_COORD_POINTER)
-        writeFloat(Z_COORD_POINTER, z - speedModifier)
-    end
-
-    -- Y Coordinate
-    if isKeyPressed(VK_W) then
-        local y = readFloat(Y_COORD_POINTER)
-        writeFloat(Y_COORD_POINTER, y + speedModifier)
-    end
-    if isKeyPressed(VK_S) then
-        local y = readFloat(Y_COORD_POINTER)
-        writeFloat(Y_COORD_POINTER, y - speedModifier)
-    end
-end
+local SCRIPTNAME = "noclip"
+local PATH = "asm/position/noclip.asm"
 
 [ENABLE]
-noclipTimer = createTimer(getMainForm(), true)
-noclipTimer.setInterval(15)
-noclipTimer.setOnTimer(noclipFly)
-noclipTimer.setEnabled(true)
+local enableInfo = {
+    scriptName = SCRIPTNAME,
+    asmPath = PATH,
+    enable = true,
+}
+asm.execute(enableInfo)
 
 [DISABLE]
-if noclipTimer ~= nil then
-    noclipTimer.destroy()
-    noclipTimer = nil
-end
+local disableInfo = {
+    scriptName = SCRIPTNAME,
+    asmPath = PATH,
+    enable = false,
+}
+asm.execute(disableInfo)
 
 </AssemblerScript>
                 </CheatEntry>
@@ -141,7 +76,7 @@ end
                 <CheatEntry>
                   <ID>64</ID>
                   <Description>"X"</Description>
-                  <LastState Value="215.8033905" RealAddress="1E919A925B8"/>
+                  <LastState Value="-9.625" RealAddress="24A4F7C0998"/>
                   <VariableType>Float</VariableType>
                   <Address>"metro.exe"+00D01EB0</Address>
                   <Offsets>
@@ -154,7 +89,7 @@ end
                 <CheatEntry>
                   <ID>61</ID>
                   <Description>"Y"</Description>
-                  <LastState Value="-150.6347504" RealAddress="1E919A925C0"/>
+                  <LastState Value="-13.96700096" RealAddress="24A4F7C09A0"/>
                   <VariableType>Float</VariableType>
                   <Address>"metro.exe"+00D01EB0</Address>
                   <Offsets>
@@ -167,7 +102,7 @@ end
                 <CheatEntry>
                   <ID>67</ID>
                   <Description>"Z"</Description>
-                  <LastState Value="-13.02845478" RealAddress="1E919A925BC"/>
+                  <LastState Value="0.9944119453" RealAddress="24A4F7C099C"/>
                   <VariableType>Float</VariableType>
                   <Address>"metro.exe"+00D01EB0</Address>
                   <Offsets>
@@ -190,7 +125,7 @@ end
             <CheatEntry>
               <ID>8</ID>
               <Description>"FOV"</Description>
-              <LastState Value="65" RealAddress="7FF6D984710C"/>
+              <LastState Value="65" RealAddress="7FF61CD5710C"/>
               <VariableType>Float</VariableType>
               <Address>metro.exe+CE710C</Address>
             </CheatEntry>
@@ -203,17 +138,17 @@ end
   <DisassemblerComments>
     <DisassemblerComment>
       <Address>"metro.exe"+89E02F</Address>
-      <Comment>PlayerX Load
+      <Comment>PlayerX Save
 </Comment>
     </DisassemblerComment>
     <DisassemblerComment>
       <Address>"metro.exe"+89E039</Address>
-      <Comment>PlayerZ Load
+      <Comment>PlayerZ Save
 </Comment>
     </DisassemblerComment>
     <DisassemblerComment>
       <Address>"metro.exe"+89E04A</Address>
-      <Comment>PlayerY Load
+      <Comment>PlayerY Save
 </Comment>
     </DisassemblerComment>
   </DisassemblerComments>
