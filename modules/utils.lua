@@ -6,8 +6,9 @@ function u.log(message)
 end
 
 function u.syntaxCheck(script)
-    if not autoAssembleCheck(script) then
-        u.log("Error while parsing autoassembler file")
+    local error, message = autoAssembleCheck(script)
+    if not error then
+        u.log("Syntax error found in autoassembler script.\n" .. message)
         return ""
     end
     return script
