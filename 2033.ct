@@ -76,7 +76,6 @@ asm.execute(disableInfo)
                 <CheatEntry>
                   <ID>64</ID>
                   <Description>"X"</Description>
-                  <LastState Value="-9.625" RealAddress="24A4F7C0998"/>
                   <VariableType>Float</VariableType>
                   <Address>"metro.exe"+00D01EB0</Address>
                   <Offsets>
@@ -89,7 +88,6 @@ asm.execute(disableInfo)
                 <CheatEntry>
                   <ID>61</ID>
                   <Description>"Y"</Description>
-                  <LastState Value="-13.96700096" RealAddress="24A4F7C09A0"/>
                   <VariableType>Float</VariableType>
                   <Address>"metro.exe"+00D01EB0</Address>
                   <Offsets>
@@ -102,7 +100,6 @@ asm.execute(disableInfo)
                 <CheatEntry>
                   <ID>67</ID>
                   <Description>"Z"</Description>
-                  <LastState Value="0.9944119453" RealAddress="24A4F7C099C"/>
                   <VariableType>Float</VariableType>
                   <Address>"metro.exe"+00D01EB0</Address>
                   <Offsets>
@@ -125,7 +122,6 @@ asm.execute(disableInfo)
             <CheatEntry>
               <ID>8</ID>
               <Description>"FOV"</Description>
-              <LastState Value="65" RealAddress="7FF61CD5710C"/>
               <VariableType>Float</VariableType>
               <Address>metro.exe+CE710C</Address>
             </CheatEntry>

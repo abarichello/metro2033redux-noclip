@@ -18,3 +18,8 @@ Click any thumbnail below to watch a video demonstration.
 Key|Action
 -|-
 Single Quote(')|Toggle noclip
+
+# Reference
+
+[Assembler Commands](https://wiki.cheatengine.org/index.php?title=Assembler:Commands)
+[celua.txt](https://github.com/cheat-engine/cheat-engine/blob/master/Cheat%20Engine/bin/celua.txt)
