@@ -18,3 +18,6 @@ Click any thumbnail below to watch a video demonstration.
 Key|Action
 -|-
 Single Quote(')|Toggle noclip
+
+### Notes
+Due to the usage of pointer chains this mod only works for the first level of the game.
